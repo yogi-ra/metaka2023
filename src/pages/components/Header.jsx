@@ -1,25 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export default function Header() {
+const Header = () => {
+  const [isActive, setIsActive] = useState(false);
+
+  const handleBurgerClick = () => {
+    setIsActive(!isActive);
+  };
+
   return (
     <>
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
+      <style>
+        {`
+        .active {
+            color: black;
+            font-weight: bold;
+        }
+            `}
+      </style>
+      <nav className="navbar" role="navigation" aria-label="main navigation">
+        <div className="navbar-brand">
+          <a className="navbar-item" href="/">
             <img
               src="https://bulma.io/images/bulma-logo.png"
               width="112"
               height="28"
+              alt="Bulma"
             />
           </a>
 
           <a
             role="button"
-            class="navbar-burger"
+            className={`navbar-burger ${isActive ? "is-active" : ""}`}
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
+            onClick={handleBurgerClick}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -27,37 +43,56 @@ export default function Header() {
           </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-            <a className="navbar-item">
-              <NavLink to="/">Home</NavLink>
-            </a>
-            <a className="navbar-item">
-              <NavLink to="/about" class="navbar-item">
-                About
-              </NavLink>
-            </a>
-            <a class="navbar-item">
-              <NavLink to="/jobs">Jobs</NavLink>
-            </a>
-            <a class="navbar-item">
-              <NavLink to="/contact" class="navbar-item">
-                Contact
-              </NavLink>
-            </a>
-            <hr class="navbar-divider" />
-            <a class="navbar-item">
-              <NavLink to="/report">Report an issue</NavLink>
-            </a>
+        <div
+          id="navbarBasicExample"
+          className={`navbar-menu ${isActive ? "is-active" : ""}`}
+        >
+          <div className="navbar-start">
+            <NavLink
+              exact
+              to="/"
+              className="navbar-item"
+              activeClassName="active"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="navbar-item"
+              activeClassName="active"
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/jobs"
+              className="navbar-item"
+              activeClassName="active"
+            >
+              Jobs
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className="navbar-item"
+              activeClassName="active"
+            >
+              Contact
+            </NavLink>
+            <NavLink
+              to="/report"
+              className="navbar-item"
+              activeClassName="active"
+            >
+              Report an issue
+            </NavLink>
           </div>
 
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary">
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <div className="buttons">
+                <a className="button is-primary">
                   <strong>Sign up</strong>
                 </a>
-                <a class="button is-light">Log in</a>
+                <a className="button is-light">Log in</a>
               </div>
             </div>
           </div>
@@ -65,4 +100,6 @@ export default function Header() {
       </nav>
     </>
   );
-}
+};
+
+export default Header;
